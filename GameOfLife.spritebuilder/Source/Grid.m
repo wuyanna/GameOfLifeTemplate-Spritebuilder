@@ -152,4 +152,33 @@ static const int GRID_COLUMNS = 10;
     return isIndexValid;
 }
 
+- (void)updateCreatures
+{
+    int numAlive = 0;
+    for (int i = 0; i < [_gridArray count]; i++) {
+        for (int j = 0; j < [_gridArray[i] count]; j++) {
+            Creature *creature = _gridArray[i][j];
+
+            //If it has 0-1 live neighbors the Creature on that cell dies or
+            //stays dead. If it has 2-3 live neighbors it stays alive. If it
+            //has 4 or more, it stays dead or dies. If it has exactly 3
+            //neighbors and it is dead, it comes to life!
+            switch (creature.livingNeighbors) {
+                case 2:
+                    break;
+                case 3:
+                    creature.isAlive = YES;
+                    break;
+                default:
+                    creature.isAlive = NO;
+                    break;
+            }
+            if (creature.isAlive) {
+                numAlive += 1;
+            }
+        }
+    }
+    _totalAlive = numAlive;
+}
+
 @end
