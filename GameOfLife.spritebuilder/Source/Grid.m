@@ -81,6 +81,10 @@ static const int GRID_COLUMNS = 10;
     //get the row and column that was touched, return the Creature inside the corresponding cell
     int col = touchPosition.x / _cellWidth;
     int row = touchPosition.y /_cellHeight;
+
+    // handle corner case when touching on the edge
+    row = row >= GRID_ROWS ? GRID_ROWS - 1 : row;
+    col = col >= GRID_COLUMNS ? GRID_COLUMNS - 1 : col;
     return _gridArray[row][col];
 }
 
